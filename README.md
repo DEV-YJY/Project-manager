@@ -6,3 +6,6 @@ TypeScript
 GraphQL + Apollo
 NextJS
 Prisma
+
+- table
+  - user table & task table
