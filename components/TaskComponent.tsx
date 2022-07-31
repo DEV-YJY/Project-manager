@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 import { Card, Form, Button } from 'react-bootstrap'
 
-function TaskComponent() {
+const TaskComponent: React.FC<Task> = ({ title, description, id }) => {
   return (
-    <div>TaskComponent</div>
+    <>
+      <Card className='task-container'>
+        <Card.Body>{title}</Card.Body>
+      </Card>
+    </>
   )
 }
 

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { gql, useQuery } from '@apollo/client'
 import { Row } from 'react-bootstrap'
+import TaskComponent from '../components/TaskComponent'
 
 const AllTasksQuery = gql `
   query {
@@ -24,12 +25,15 @@ function Board() {
       <Row>
         <h1>Project Title</h1>
       </Row>
-      <div className='board-container'>
-        {data && data.tasks.map(task => {
+      <div className='board-container d-flex flex-row flex-grow-1'>
+        {data && data.tasks.map((task: Task) => {
           return ( 
-            <div>
-              {task.title}
-            </div>
+            <TaskComponent 
+              title={task.title}
+              description={task.description}
+              id={task.id}
+              key={task.id}
+            />
           )
         })}
       </div>
