@@ -13,6 +13,11 @@ const AllTasksQuery = gql `
 `
 
 function Board() {
+  const { data, loading, error } = useQuery(AllTasksQuery, {
+    onCompleted: data => {
+      console.log(data)
+    }
+  })
   return (
     <div>
       Board
