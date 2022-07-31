@@ -11,7 +11,7 @@ function Nav() {
         </NavbarBrand>
         <Navbar.Toggle />
         <Navbar.Collapse className='justify-content-end'>
-          <Navbar.Text>
+          <Navbar.Text className='p-3'>
             Signed in as: <a href='#login'></a>
           </Navbar.Text>
           <Link href='' passHref>
