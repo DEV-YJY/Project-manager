@@ -11,7 +11,7 @@ interface BoardSectionProps {
 }
 
 const BoardSection: React.FC<BoardSectionProps> = ({ title, tasks }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false)
   
   const handleClose = () => {
     setShowModal(false)
@@ -35,6 +35,7 @@ const BoardSection: React.FC<BoardSectionProps> = ({ title, tasks }) => {
                   description={task.description}
                   id={task.id}
                   key={task.id}
+                  boardCategory={title}
                 />
               )
             })
