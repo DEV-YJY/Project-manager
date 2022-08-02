@@ -60,6 +60,7 @@ const BoardSection: React.FC<BoardSectionProps> = ({ title, tasks }) => {
       <AddTaskModal
         showModal={showModal}
         handleClose={handleClose}
+        boardCategory={title}
       />
     </>
   )
