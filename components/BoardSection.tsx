@@ -37,6 +37,15 @@ const BoardSection: React.FC<BoardSectionProps> = ({ title, tasks }) => {
               Add Task
             </Button>
           }
+          {
+            tasks.length === 0 &&
+            <div className='is-empty d-flex flex-column'>
+              <Button className='add-wrapper'>
+                <FontAwesomeIcon icon={faPlus} style={{ 'padding': '2px' }} />
+                Add Task
+              </Button>
+            </div>
+          }
         </Container>
       </Col>
     </>
