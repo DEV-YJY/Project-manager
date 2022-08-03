@@ -3,6 +3,7 @@ import { gql, useQuery } from '@apollo/client'
 import { Row } from 'react-bootstrap'
 import TaskComponent from '../components/TaskComponent'
 import BoardSection from '../components/BoardSection'
+import { DragDropContext } from 'react-beautiful-dnd'
 
 const AllTasksQuery = gql `
   query {
@@ -24,6 +25,10 @@ function Board() {
 
   const sections: string[] = ['Backlog', 'In-Progress', 'Review', 'Done']
 
+  const onDragEnd = (result) => {
+    
+  }
+
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error</p>
 
@@ -32,18 +37,20 @@ function Board() {
         <Row>
           <h1>Project Title</h1>
         </Row>
-        <div className='board-container d-flex flex-row flex-grow-1'>
-          {sections.map((section: String, index: number) => {
-            let filteredData: Array<Task> = data ? data.tasks.filter((task: Task) => {return task.status === section}) : []
-            return (
-              <BoardSection 
-                title={section}
-                key={index}
-                tasks={filteredData}
-              />
-            )
-          })}
-        </div>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <div className='board-container d-flex flex-row flex-grow-1'>
+            {sections.map((section: String, index: number) => {
+              let filteredData: Array<Task> = data ? data.tasks.filter((task: Task) => {return task.status === section}) : []
+              return (
+                <BoardSection 
+                  title={section}
+                  key={index}
+                  tasks={filteredData}
+                />
+              )
+            })}
+          </div>
+        </DragDropContext>
       </div>
   )
 }
