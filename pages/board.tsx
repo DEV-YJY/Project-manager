@@ -26,7 +26,8 @@ function Board() {
   const sections: string[] = ['Backlog', 'In-Progress', 'Review', 'Done']
 
   const onDragEnd = (result) => {
-    
+    const { destination, source, draggableId } = result
+    console.log(result)
   }
 
   if (loading) return <p>Loading...</p>

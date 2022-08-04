@@ -3,6 +3,7 @@ import { Card, Form, Button, Modal } from 'react-bootstrap'
 import { gql, useMutation, useQuery } from '@apollo/client'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { Draggable } from 'react-beautiful-dnd'
 
 const UpdateTaskMutation = gql`
   mutation UpdateTaskMutation($id: String!, $title: String, $description: String, $userId: String, $status: String) {
@@ -23,7 +24,7 @@ const DeleteTaskMutation = gql`
   }
 `
 
-const TaskComponent: React.FC<Task> = ({ title, description, id, boardCategory }) => {
+const TaskComponent: React.FC<Task> = ({ title, description, id, boardCategory, index }) => {
   const [taskTitle, setTaskTitle] = useState(title);
   const [taskDescription, setTaskDescription] = useState(description);
   const [assignTo, setAssignTo] = useState('');
@@ -37,11 +38,19 @@ const TaskComponent: React.FC<Task> = ({ title, description, id, boardCategory }
   }
 
   const handleShowModal = () => setShowModal(true)
+  const handleShow = () => setShowModal(true)
 
   const handleTaskUpdate = (e) => {
-    e.preventDefault();
-    updateTask({ variables: { title: taskTitle, description: taskDescription, id: id}});
-    handleClose();
+    e.preventDefault()
+    updateTask({
+      variables: {
+        title: taskTitle,
+        description: taskDescription,
+        id: id,
+        status: boardCategory
+      }
+    })
+    handleClose()
   }
 
   const handleTaskDelete = () => {
@@ -55,10 +64,13 @@ const TaskComponent: React.FC<Task> = ({ title, description, id, boardCategory }
 
   return (
     <>
-      <Card className='task-container'>
-        <Card.Body>{title}</Card.Body>
-      </Card>
-      <Modal show={showModal} onHide={handleClose}>
+      <Draggable draggableId={id} index={index}>
+        {(provided) => (
+          <Card className="task-container" onClick={() => handleShow()} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+            <Card.Body>{title}</Card.Body>
+          </Card>
+        )}
+      </Draggable>      <Modal show={showModal} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Update a Task</Modal.Title>
       </Modal.Header>
