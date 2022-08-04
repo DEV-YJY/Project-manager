@@ -28,9 +28,12 @@ const UpdateTaskMutation = gql`
 `
 
 function Board() {
+  const [tasks, setTasks] = useState([])
+
   const { data, loading, error } = useQuery(AllTasksQuery, {
     onCompleted: data => {
       console.log(data)
+      setTasks(data)
     }
   })
 
@@ -54,6 +57,19 @@ function Board() {
         status: destination.droppableId
       }
     })
+
+    const updatedTasksList = tasks && tasks.tasks.map((t: any) => {
+      if (t.id === draggableId) {
+        return {
+          ...t,
+          status: destination.droppableId
+        }
+      } else {
+        return t
+      }
+    })
+    setTasks(updatedTasksList)
+
   }
 
   if (loading) return <p>Loading...</p>
