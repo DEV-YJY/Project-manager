@@ -6,3 +6,4 @@ To practice some new techs:
 - GraphQL + Apollo
 - NextJS
 - Prisma
+
